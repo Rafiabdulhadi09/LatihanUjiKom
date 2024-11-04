@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', [LoginController::class, 'index'])->name('user.login');
+    Route::post('/submit', [LoginController::class, 'login'])->name('user.login.submit');
+});
 
-Route::get('/', [LoginController::class, 'index'])->name('user.login');
-Route::post('/submit', [LoginController::class, 'login'])->name('user.login.submit');
 
 Route::get('/admin', [AdminContoller::class, 'index'])->name('admin');

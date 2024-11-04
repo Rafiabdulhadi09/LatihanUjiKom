@@ -29,10 +29,15 @@ class LoginController extends Controller
     ];
 
     if(Auth::attempt($infologin)){
-        echo "sukses";exit;
+        return redirect()->route('admin');
     } else {
         return redirect('')->withErrors('Username dan password yang anda masukan salah')->withInput();
     }
+   }
+   function logout()
+   {
+    Auth::logout();
+    return redirect('');
    }
 }
 
