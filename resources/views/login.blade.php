@@ -15,7 +15,7 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form action="{{ route('user.login.submit') }}" method="POST">
+    <form action="{{ route('user.login') }}" method="POST">
         @csrf
         <h3>Login Here</h3>
         @if ($errors->any())

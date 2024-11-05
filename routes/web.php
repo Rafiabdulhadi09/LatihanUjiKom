@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('login');
-    Route::post('/submit', [LoginController::class, 'login'])->name('user.login.submit');
+    Route::post('/submit', [LoginController::class, 'login'])->name('user.login');
 });
 Route::get('/home', function () {
     return redirect('/admin');

@@ -9,9 +9,7 @@ class AdminContoller extends Controller
 {
     public function admin()
     {
-        echo "Hallo selamat datang Admin";
-        echo "<h1>" . Auth::user()->name ."</h1>";
-        echo "<a href='logout'>logout</a>";
+        return view('admin.index');
     }
 
     public function petugas()
