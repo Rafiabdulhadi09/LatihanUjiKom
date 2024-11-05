@@ -16,9 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/', [LoginController::class, 'index'])->name('user.login');
+    Route::get('/', [LoginController::class, 'index'])->name('login');
     Route::post('/submit', [LoginController::class, 'login'])->name('user.login.submit');
 });
-
-
-Route::get('/admin', [AdminContoller::class, 'index'])->name('admin');
+Route::get('/home', function () {
+    return redirect('/admin');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/logout', [LoginController::class, 'logout']);
+    Route::get('/admin', [AdminContoller::class, 'admin'])->name('admin')->middleware('userAkses:admin');    
+    Route::get('/petugas', [AdminContoller::class, 'petugas'])->name('petugas')->middleware('userAkses:petugas');    
+    Route::get('/pimpinan', [AdminContoller::class, 'pimpinan'])->name('pimpinan')->middleware('userAkses:pimpinan'); 
+});

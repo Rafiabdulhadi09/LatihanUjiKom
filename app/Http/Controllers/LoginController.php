@@ -29,11 +29,18 @@ class LoginController extends Controller
     ];
 
     if(Auth::attempt($infologin)){
-        return redirect()->route('admin');
+        if(Auth::user()->role == 'admin') {
+            return redirect('/admin');
+        } elseif (Auth::user()->role == 'petugas') {
+            return redirect('/petugas');
+        } elseif (Auth::user()->role == 'pimpinan') {
+            return redirect('/pimpinan');
+        }
     } else {
         return redirect('')->withErrors('Username dan password yang anda masukan salah')->withInput();
     }
    }
+   
    function logout()
    {
     Auth::logout();
