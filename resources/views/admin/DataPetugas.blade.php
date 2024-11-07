@@ -12,7 +12,7 @@
     <title>SB Admin 2 - Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href={{ url('vendor/fontawesome-free/css/all.min.css')}} rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -43,7 +43,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href={{ route('admin') }}>
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -62,7 +62,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelola Data:</h6>
                         <a class="collapse-item" href="{{ route('admin.datapetugas') }}">Data Petugas</a>
-                        <a class="collapse-item" href="{{ route('admin.kategori') }}">Data Kategori</a>   
+                        <a class="collapse-item" href="{{ route('admin.kategori') }}">Data Kategori</a>
                     </div>
                 </div>
             </li>
@@ -168,96 +168,72 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <h1 class="h3 mb-0 text-gray-800">Data Petugas</h1>
                     </div>
-
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                        Tambah Data Petugas++
+                    </button>
                     <!-- Content Row -->
                     <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
+                        <table class="table table-bordered table-striped table- m-3">
+                            <thead style="background-color: #0064cf; color: white;">
+                                <div class="m-2" style="width: 100%">
+                                @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
                                 </div>
+                            @endif
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $item)
+                                    <li>{{ $item }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
+                        @else
+                            
+                        @endif
                         </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                <tr>
+                                    <th class="text-center">No</th>
+                                    <th class="text-center">Nama</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Tgl Bergabung</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              @foreach ($petugas as $item)
+                                <tr class="table-hover">
+                                    <td class="text-center">1</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center ml-4">
+                                            <!-- Tombol Edit -->
+                                            <div class="m-2">
+                                                <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#EditPetugas">
+                                                    Edit
+                                                </button>
                                             </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                            <!-- Tombol Hapus -->
+                                            <form action="{{ route('admin.delete.petugas', $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger me-2" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                                    Hapus
+                                                </button>
+                                            </form>
+                                        </div>                                        
+                                    </td>
+                                </tr>                                 
+                                @endforeach
+                            </tbody>
+                        </table>
+                        
+                        
                     </div>
 
 
@@ -272,6 +248,74 @@
 
     </div>
     <!-- End of Page Wrapper -->
+
+            {{-- Edit Data Petugas --}}
+            <div class="modal fade" id="EditPetugas" tabindex="-1" aria-labelledby="EditPetugas" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="EditPetugas">Edit Data Petugas</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('admin.tambah.datapetugas') }}" method="POST">
+                                @csrf
+                                <div class="row m-2 ">
+                                    <label for="inputName" class="form-label">Masukan Nama :</label>
+                                    <input type="text" name="name" class="form-control" id="inputName">
+                                </div>
+                                <div class="row m-2 ">
+                                    <label for="inputEmail" class="form-label">Masukan Email :</label>
+                                    <input type="email" name="email" class="form-control" id="inputEmail">
+                                </div>
+                                <div class="row m-2 ">
+                                    <label for="inputPassword" class="form-label">Masukan Password :</label>
+                                    <input type="password" name="password" class="form-control" id="inputPassword">
+                                </div>
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+            {{-- end edit data konsumen --}}
+
+        {{-- Tamabah Data Petugas --}}
+        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Tambah Data Petugas</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('admin.tambah.datapetugas') }}" method="POST">
+                            @csrf
+                            <div class="row m-2 ">
+                                <label for="inputName" class="form-label">Masukan Nama :</label>
+                                <input type="text" name="name" class="form-control" id="inputName">
+                            </div>
+                            <div class="row m-2 ">
+                                <label for="inputEmail" class="form-label">Masukan Email :</label>
+                                <input type="email" name="email" class="form-control" id="inputEmail">
+                            </div>
+                            <div class="row m-2 ">
+                                <label for="inputPassword" class="form-label">Masukan Password :</label>
+                                <input type="password" name="password" class="form-control" id="inputPassword">
+                            </div>
+                    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+        {{-- end data Petugas --}}
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -292,29 +336,30 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{ url('logout') }}">Logout</a>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src={{ url('vendor/fontawesome-free/css/all.min.css')}}></script>
+    <script src={{ url('vendor/bootstrap/js/bootstrap.bundle.min.js')}}></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src={{ url('vendor/jquery-easing/jquery.easing.min.js') }}></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src={{ url('js/sb-admin-2.min.js')}}></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src={{ url('vendor/chart.js/Chart.min.js')}}></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src={{ url('js/demo/chart-area-demo.js')}}></script>
+    <script src={{ url('js/demo/chart-pie-demo.js')}}></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
