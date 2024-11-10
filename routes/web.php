@@ -6,6 +6,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\TransaksiDetailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,4 +40,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/delete/{id}/produk', [ProdukController::class, 'delete'])->name('admin.delete.produk')->middleware('userAkses:admin'); 
     Route::get('/admin/datakategori', [KategoriController::class, 'index'])->name('admin.kategori')->middleware('userAkses:admin'); 
     Route::post('/admin/tambah/kategori', [KategoriController::class, 'create'])->name('admin.tambah.kategori')->middleware('userAkses:admin'); 
+    Route::get('/petugas/transaksi', [TransaksiController::class, 'TambahTransaksi'])->name('petugas.transaksi')->middleware('userAkses:petugas'); 
+    Route::get('/petugas/transaksi/{id}/edit', [TransaksiController::class, 'index'])->name('petugas.transaksi.edit')->middleware('userAkses:petugas'); 
+    Route::get('/petugas/tambah/produk', [ProdukController::class, 'transaksi'])->name('petugas.tambah.produk')->middleware('userAkses:petugas'); 
+    Route::post('/petugas/detail/create', [TransaksiDetailController::class, 'create'])->name('transaksi.detail.create')->middleware('userAkses:petugas'); 
+    Route::get('/petugas/detail/delete{id}', [TransaksiDetailController::class, 'delete'])->name('transaksi.detail.delete')->middleware('userAkses:petugas'); 
+    Route::get('/petugas/detail/selesai{id}', [TransaksiDetailController::class, 'selesai'])->name('transaksi.detail.selesai')->middleware('userAkses:petugas'); 
 });

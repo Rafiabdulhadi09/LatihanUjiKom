@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produk', function (Blueprint $table) {
+        Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kategori_id') ->constrained('kategori')->onDelete('cascade');
-            $table->string('kd_produk');
-            $table->string('name_produk');
-            $table->integer('harga');
-            $table->integer('stok');
+            $table->foreignId('petugas_id') ->constrained('users')->onDelete('cascade');
+            $table->bigInteger('total');
+            $table->enum('status', ['selesai','pending'])->default('pending');
             $table->timestamps();            
         });
     }

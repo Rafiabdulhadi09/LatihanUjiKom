@@ -197,6 +197,7 @@
                                 <tr>
                                     <th class="text-center">No</th>
                                     <th class="text-center">Nama</th>
+                                    <th class="text-center">Kode Produk</th>
                                     <th class="text-center">Harga</th>
                                     <th class="text-center">Stok</th>
                                     <th class="text-center">Aksi</th>
@@ -207,6 +208,7 @@
                                 <tr class="table-hover">
                                     <td class="text-center">1</td>
                                     <td>{{ $item->name_produk }}</td>
+                                    <td>{{ $item->kd_produk }}</td>
                                     <td>{{ formatRupiah($item->harga) }}</td>
                                     <td>{{ $item->stok }}</td>
                                     <td>
@@ -282,7 +284,7 @@
         </form>
             {{-- end edit data konsumen --}}
 
-        {{-- Tamabah Data Petugas --}}
+        {{-- Tamabah Data Produk --}}
         <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -295,6 +297,10 @@
                             <div class="row m-2 ">
                                 <label for="inputName" class="form-label">Masukan Nama Produk:</label>
                                 <input type="text" name="name_produk" class="form-control" id="inputName">
+                            </div>
+                            <div class="row m-2 ">
+                                <label for="inputKdProduk" class="form-label">Masukan Kode Produk:</label>
+                                <input type="text" name="kd_produk" class="form-control" id="inputKdProduk">
                             </div>
                             <div class="row m-2 ">
                                 <label for="Harga" class="form-label">Masukan Harga :</label>
@@ -316,7 +322,7 @@
             </div>
         </div>
     </form>
-        {{-- end data Petugas --}}
+        {{-- end data Produk --}}
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">

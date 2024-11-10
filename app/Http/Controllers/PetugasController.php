@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PetugasController extends Controller
 {
@@ -27,8 +28,8 @@ class PetugasController extends Controller
         User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => $request->input('password'),
-            'role' => 'petugas'
+            'password' => Hash::make($request->input('password')),
+            'role' => 'petugas',
         ]);
         return redirect()->route('admin.datapetugas')->with('success', 'User berhasil dibuat!');
     }

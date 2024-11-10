@@ -15,9 +15,7 @@ class AdminContoller extends Controller
 
     public function petugas()
     {
-        echo "Hallo selamat datang Petugas";
-        echo "<h1>" . Auth::user()->name ."</h1>";
-        echo "<a href='logout'>logout</a>";
+        return view('petugas.index');
     }
 
     public function pimpinan()
