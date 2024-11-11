@@ -45,8 +45,4 @@ class ProdukController extends Controller
 
         return redirect()->back()->with('success', 'Produk berhasil dihapus!');
     }
-    public function transaksi()
-    {
-        return view('petugas.Produk');
-    }
 }

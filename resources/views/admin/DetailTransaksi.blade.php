@@ -12,7 +12,7 @@
     <title>SB Admin 2 - Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{ url('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href={{ url('vendor/fontawesome-free/css/all.min.css')}} rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -43,20 +43,39 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route('petugas') }}">
+                <a class="nav-link" href="{{ route('admin') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ route('petugas.transaksi') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Tambah Transaksi</span></a>
-            </li>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Data</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kelola Data:</h6>
+                        <a class="collapse-item" href="{{ route('admin.datapetugas') }}">Data Petugas</a>
+                        <a class="collapse-item" href="{{ route('admin.kategori') }}">Data Kategori</a>   
+                    </div>
+                </div>
+            </li>  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
             <!-- Divider -->
             <hr class="sidebar-divider">
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('admin.laporan') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Laporan Transaksi</span></a>
+            </li>
+
+             <!-- Divider -->
+             <hr class="sidebar-divider">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -155,11 +174,8 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">List Produk</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <h1 class="h3 mb-0 text-gray-800">Detail Transaksi</h1>
                     </div>
-
                     <!-- Content Row -->
                     <div class="row">
                         <table class="table table-bordered table-striped table- m-3">
@@ -184,26 +200,26 @@
                         </div>
                                 <tr>
                                     <th class="text-center">No</th>
-                                    <th class="text-center">Nama</th>
-                                    <th class="text-center">Email</th>
-                                    <th class="text-center">Tgl Bergabung</th>
-                                    <th class="text-center">Aksi</th>
+                                    <th class="text-center">Nama Produk</th>
+                                    <th class="text-center">jumlah</th>
+                                    <th class="text-center">Subtotal</th>
                                 </tr>
                             </thead>
                             <tbody>
-                             
+                             @foreach ($detail->detailTransaksi as $item)
                                 <tr class="table-hover">
-                                    <td class="text-center">1</td>
-                                    <td>hh</td>
-                                    <td>gg</td>
-                                    <td>gg</td>
-                                    <td>
-                                        <button>tambah</button>                             
-                                    </td>
-                                </tr>                                 
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td>{{ $item->produk_name }}</td>
+                                    <td>{{ $item->qty }}</td>
+                                    <td>{{ formatRupiah($item->subtotal) }}</td>
+                                </tr>                                   
+                              @endforeach                              
                             </tbody>
                         </table>
+                        
+                        
                     </div>
+
 
                 </div>
                 <!-- /.container-fluid -->
@@ -236,29 +252,30 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{ url('logout') }}">Logout</a>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src={{ url('vendor/fontawesome-free/css/all.min.css')}}></script>
+    <script src={{ url('vendor/bootstrap/js/bootstrap.bundle.min.js')}}></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src={{ url('vendor/jquery-easing/jquery.easing.min.js') }}></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src={{ url('js/sb-admin-2.min.js')}}></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src={{ url('vendor/chart.js/Chart.min.js')}}></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src={{ url('js/demo/chart-area-demo.js')}}></script>
+    <script src={{ url('js/demo/chart-pie-demo.js')}}></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -43,15 +43,13 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href={{ route('admin') }}>
+                <a class="nav-link" href="{{ route('admin') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -62,12 +60,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelola Data:</h6>
                         <a class="collapse-item" href="{{ route('admin.datapetugas') }}">Data Petugas</a>
-                        <a class="collapse-item" href="{{ route('admin.kategori') }}">Data Kategori</a>
+                        <a class="collapse-item" href="{{ route('admin.kategori') }}">Data Kategori</a>   
                     </div>
                 </div>
-            </li>
-
-
+            </li>  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -177,11 +174,8 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Data Petugas</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Detail Transaksi</h1>
                     </div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                        Tambah Data Petugas++
-                    </button>
                     <!-- Content Row -->
                     <div class="row">
                         <table class="table table-bordered table-striped table- m-3">
@@ -206,39 +200,20 @@
                         </div>
                                 <tr>
                                     <th class="text-center">No</th>
-                                    <th class="text-center">Nama</th>
-                                    <th class="text-center">Email</th>
-                                    <th class="text-center">Tgl Bergabung</th>
-                                    <th class="text-center">Aksi</th>
+                                    <th class="text-center">Nama Produk</th>
+                                    <th class="text-center">jumlah</th>
+                                    <th class="text-center">Subtotal</th>
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach ($petugas as $item)
+                             @foreach ($detail->detailTransaksi as $item)
                                 <tr class="table-hover">
-                                    <td class="text-center">1</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->created_at->format('d-m-Y') }}</td>
-                                    <td>
-                                        <div class="d-flex align-items-center ml-4">
-                                            <!-- Tombol Edit -->
-                                            <div class="m-2">
-                                                <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#EditPetugas">
-                                                    Edit
-                                                </button>
-                                            </div>
-                                            <!-- Tombol Hapus -->
-                                            <form action="{{ route('admin.delete.petugas', $item->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger me-2" data-toggle="tooltip" data-placement="top" title="Hapus">
-                                                    Hapus
-                                                </button>
-                                            </form>
-                                        </div>                                        
-                                    </td>
-                                </tr>                                 
-                                @endforeach
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td>{{ $item->produk_name }}</td>
+                                    <td>{{ $item->qty }}</td>
+                                    <td>{{ formatRupiah($item->subtotal) }}</td>
+                                </tr>                                   
+                              @endforeach                              
                             </tbody>
                         </table>
                         
@@ -257,74 +232,6 @@
 
     </div>
     <!-- End of Page Wrapper -->
-
-            {{-- Edit Data Petugas --}}
-            <div class="modal fade" id="EditPetugas" tabindex="-1" aria-labelledby="EditPetugas" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="EditPetugas">Edit Data Petugas</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('admin.tambah.datapetugas') }}" method="POST">
-                                @csrf
-                                <div class="row m-2 ">
-                                    <label for="inputName" class="form-label">Masukan Nama :</label>
-                                    <input type="text" name="name" class="form-control" id="inputName">
-                                </div>
-                                <div class="row m-2 ">
-                                    <label for="inputEmail" class="form-label">Masukan Email :</label>
-                                    <input type="email" name="email" class="form-control" id="inputEmail">
-                                </div>
-                                <div class="row m-2 ">
-                                    <label for="inputPassword" class="form-label">Masukan Password :</label>
-                                    <input type="password" name="password" class="form-control" id="inputPassword">
-                                </div>
-                        
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-            {{-- end edit data konsumen --}}
-
-        {{-- Tamabah Data Petugas --}}
-        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Tambah Data Petugas</h5>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('admin.tambah.datapetugas') }}" method="POST">
-                            @csrf
-                            <div class="row m-2 ">
-                                <label for="inputName" class="form-label">Masukan Nama :</label>
-                                <input type="text" name="name" class="form-control" id="inputName">
-                            </div>
-                            <div class="row m-2 ">
-                                <label for="inputEmail" class="form-label">Masukan Email :</label>
-                                <input type="email" name="email" class="form-control" id="inputEmail">
-                            </div>
-                            <div class="row m-2 ">
-                                <label for="inputPassword" class="form-label">Masukan Password :</label>
-                                <input type="password" name="password" class="form-control" id="inputPassword">
-                            </div>
-                    
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-        {{-- end data Petugas --}}
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">

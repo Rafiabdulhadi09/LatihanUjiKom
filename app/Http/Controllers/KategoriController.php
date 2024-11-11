@@ -23,6 +23,6 @@ class KategoriController extends Controller
         Kategori::create([
             'nama_kategori' => $request->input('nama_kategori'),
         ]);
-        return redirect()->route('admin.kategori')->with('success', 'User berhasil dibuat!');
+        return redirect()->route('admin.kategori')->with('success', 'Kategori berhasil dibuat!');
     }
 }

@@ -16,4 +16,8 @@ class TransaksiDetail extends Model
         'qty',
         'subtotal'
     ];
+    public function transaksi()
+    {
+        return $this->belongsTo(User::class, 'transaksi_id');
+    }
 }

@@ -51,9 +51,9 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route('petugas.transaksi') }}">
+                <a class="nav-link" href="{{ route('petugas.laporan') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Tambah Transaksi</span></a>
+                    <span>Data Transaksi</span></a>
             </li>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
             <!-- Divider -->
             <hr class="sidebar-divider">

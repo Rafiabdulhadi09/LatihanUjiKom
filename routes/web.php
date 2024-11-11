@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminContoller;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\TransaksiController;
@@ -42,8 +43,18 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/tambah/kategori', [KategoriController::class, 'create'])->name('admin.tambah.kategori')->middleware('userAkses:admin'); 
     Route::get('/petugas/transaksi', [TransaksiController::class, 'TambahTransaksi'])->name('petugas.transaksi')->middleware('userAkses:petugas'); 
     Route::get('/petugas/transaksi/{id}/edit', [TransaksiController::class, 'index'])->name('petugas.transaksi.edit')->middleware('userAkses:petugas'); 
-    Route::get('/petugas/tambah/produk', [ProdukController::class, 'transaksi'])->name('petugas.tambah.produk')->middleware('userAkses:petugas'); 
     Route::post('/petugas/detail/create', [TransaksiDetailController::class, 'create'])->name('transaksi.detail.create')->middleware('userAkses:petugas'); 
     Route::get('/petugas/detail/delete{id}', [TransaksiDetailController::class, 'delete'])->name('transaksi.detail.delete')->middleware('userAkses:petugas'); 
     Route::get('/petugas/detail/selesai{id}', [TransaksiDetailController::class, 'selesai'])->name('transaksi.detail.selesai')->middleware('userAkses:petugas'); 
+    Route::get('/petugas/laporan', [LaporanController::class, 'laporan'])->name('petugas.laporan')->middleware('userAkses:petugas'); 
+    Route::get('/admin/laporan', [LaporanController::class, 'LaporanAdmin'])->name('admin.laporan')->middleware('userAkses:admin'); 
+    Route::get('/admin/transaksi', [TransaksiController::class, 'TambahTransaksiAdmin'])->name('admin.transaksi')->middleware('userAkses:admin'); 
+    Route::get('/admin/transaksi/{id}/edit', [TransaksiController::class, 'admin'])->name('admin.transaksi.edit')->middleware('userAkses:admin');
+    Route::post('/admin/detail/create', [TransaksiDetailController::class, 'CreateDetail'])->name('admin.transaksi.detail.create')->middleware('userAkses:admin'); 
+    Route::get('/admin/detail/delete{id}', [TransaksiDetailController::class, 'DeleteDetail'])->name('admin.transaksi.detail.delete')->middleware('userAkses:admin'); 
+    Route::get('/admin/detail/selesai{id}', [TransaksiDetailController::class, 'SelesaiDetail'])->name('admin.transaksi.detail.selesai')->middleware('userAkses:admin'); 
+    Route::get('/admin/detail/transaksi{id}', [LaporanController::class, 'detail'])->name('admin.detail.transaksi')->middleware('userAkses:admin'); 
+    Route::get('/petugas/detail/transaksi{id}', [LaporanController::class, 'detailTransaksiPetugas'])->name('petugas.detail.transaksi')->middleware('userAkses:petugas'); 
+
+
 });

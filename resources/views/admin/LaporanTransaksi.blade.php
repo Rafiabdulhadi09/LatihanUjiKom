@@ -43,15 +43,13 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href={{ route('admin') }}>
+                <a class="nav-link" href="{{ route('admin') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -62,12 +60,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelola Data:</h6>
                         <a class="collapse-item" href="{{ route('admin.datapetugas') }}">Data Petugas</a>
-                        <a class="collapse-item" href="{{ route('admin.kategori') }}">Data Kategori</a>
+                        <a class="collapse-item" href="{{ route('admin.kategori') }}">Data Kategori</a>   
                     </div>
                 </div>
-            </li>
-
-
+            </li>  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -179,9 +176,9 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Data Petugas</h1>
                     </div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                        Tambah Data Petugas++
-                    </button>
+                    <a href="{{ route('admin.transaksi') }}" class="btn btn-primary">
+                        Tambah Transaksi
+                    </a>
                     <!-- Content Row -->
                     <div class="row">
                         <table class="table table-bordered table-striped table- m-3">
@@ -206,39 +203,31 @@
                         </div>
                                 <tr>
                                     <th class="text-center">No</th>
-                                    <th class="text-center">Nama</th>
-                                    <th class="text-center">Email</th>
-                                    <th class="text-center">Tgl Bergabung</th>
+                                    <th class="text-center">Nama Petugas</th>
+                                    <th class="text-center">Tgl Transaksi</th>
+                                    <th class="text-center">Total Transaksi</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach ($petugas as $item)
+                              @foreach ($laporan as $item)
                                 <tr class="table-hover">
-                                    <td class="text-center">1</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td>{{ $item->user->name }}</td>
                                     <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                    <td>{{ formatRupiah($item->total) }}</td>
                                     <td>
                                         <div class="d-flex align-items-center ml-4">
                                             <!-- Tombol Edit -->
                                             <div class="m-2">
-                                                <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#EditPetugas">
-                                                    Edit
-                                                </button>
+                                                <a  href="{{ route('admin.detail.transaksi', $item->id) }}" class="btn btn-primary">
+                                                    Detail Transaksi
+                                                </a>
                                             </div>
-                                            <!-- Tombol Hapus -->
-                                            <form action="{{ route('admin.delete.petugas', $item->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger me-2" data-toggle="tooltip" data-placement="top" title="Hapus">
-                                                    Hapus
-                                                </button>
-                                            </form>
                                         </div>                                        
                                     </td>
-                                </tr>                                 
-                                @endforeach
+                                </tr>                                   
+                              @endforeach                              
                             </tbody>
                         </table>
                         
